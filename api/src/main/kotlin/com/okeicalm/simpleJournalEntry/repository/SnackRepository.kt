@@ -7,4 +7,5 @@ interface SnackRepository {
 
     fun findById(id: Long): Snack?
 
+    fun create(snack: Snack): Long
 }

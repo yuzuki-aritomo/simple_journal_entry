@@ -1,14 +1,14 @@
 package com.okeicalm.simpleJournalEntry.repository
 
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Repository
 import com.okeicalm.simpleJournalEntry.entity.Snack
 import com.okeicalm.simpleJournalEntry.tables.Snacks
-import com.okeicalm.simpleJournalEntry.tables.pojos.Snacks as SnacksPojos
 import org.jooq.DSLContext
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Repository
+import com.okeicalm.simpleJournalEntry.tables.pojos.Snacks as SnacksPojos
 
 @Repository
-class SnackRepositoryImpl @Autowired constructor(private val dslContext: DSLContext) : SnackRepository{
+class SnackRepositoryImpl @Autowired constructor(private val dslContext: DSLContext) : SnackRepository {
     override fun findAll(): List<Snack> {
         val result = dslContext.select()
             .from(Snacks.SNACKS)
@@ -19,9 +19,18 @@ class SnackRepositoryImpl @Autowired constructor(private val dslContext: DSLCont
     }
 
     override fun findById(id: Long): Snack? {
-        val snackPOJO : SnacksPojos? = dslContext
+        val snackPOJO: SnacksPojos? = dslContext
             .fetchOne(Snacks.SNACKS, Snacks.SNACKS.ID.eq(id))
             ?.into(SnacksPojos::class.java)
         return snackPOJO?.let { Snack(it) }
+    }
+
+    override fun create(snack: Snack): Long {
+        dslContext
+            .newRecord(Snacks.SNACKS)
+            .setName(snack.name)
+            .setPrice(snack.price)
+            .store()
+        return dslContext.lastID().toLong()
     }
 }
