@@ -59,7 +59,8 @@ type Mutation {
   createAccount(input: CreateAccountInput!): Account!
   deleteAccount(input: DeleteAccountInput!): DeleteAccountPayload!
   updateAccount(input: UpdateAccountInput!): Account!
-  createSnack(input: CreateSnackInput!): Snack
+  createSnack(input: CreateSnackInput!): Snack!
+  updateSnack(input: UpdateSnackInput!): Snack!
 }
 
 type Query {
@@ -87,4 +88,10 @@ input UpdateAccountInput {
 
 input CreateSnackInput {
   id: ID!
+}
+
+input UpdateSnackInput {
+  id: ID!
+  name: String!
+  price: Int!
 }

@@ -33,4 +33,14 @@ class SnackRepositoryImpl @Autowired constructor(private val dslContext: DSLCont
             .store()
         return dslContext.lastID().toLong()
     }
+
+    override fun update(id: Long, snack: Snack): Long {
+        dslContext
+            .update(Snacks.SNACKS)
+            .set(Snacks.SNACKS.NAME, snack.name)
+            .set(Snacks.SNACKS.PRICE, snack.price)
+            .where(Snacks.SNACKS.ID.eq(id))
+            .execute()
+        return id
+    }
 }
