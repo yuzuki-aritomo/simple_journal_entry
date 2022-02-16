@@ -43,4 +43,12 @@ class SnackRepositoryImpl @Autowired constructor(private val dslContext: DSLCont
             .execute()
         return id
     }
+
+    override fun delete(id: Long): Long {
+        dslContext
+            .delete(Snacks.SNACKS)
+            .where(Snacks.SNACKS.ID.eq(id))
+            .execute()
+        return id
+    }
 }

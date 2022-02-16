@@ -10,4 +10,6 @@ interface SnackRepository {
     fun create(snack: Snack): Long
 
     fun update(id: Long, snack: Snack): Long
+
+    fun delete(id: Long): Long
 }
