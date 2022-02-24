@@ -49,15 +49,25 @@ type JournalEntry {
   value: Int!
 }
 
+type Snack {
+  id: ID!
+  name: String!
+  price: Int!
+}
+
 type Mutation {
   createAccount(input: CreateAccountInput!): Account!
   deleteAccount(input: DeleteAccountInput!): DeleteAccountPayload!
   updateAccount(input: UpdateAccountInput!): Account!
+  createSnack(input: CreateSnackInput!): Snack!
+  updateSnack(input: UpdateSnackInput!): Snack!
+  deleteSnack(input: deleteSnackInput!): Snack!
 }
 
 type Query {
   allAccounts: [Account!]!
   allJournals: [Journal!]!
+  allSnacks: [Snack!]!
 }
 
 input CreateAccountInput {
@@ -75,4 +85,18 @@ input UpdateAccountInput {
   elementType: Int!
   id: ID!
   name: String!
+}
+
+input CreateSnackInput {
+  id: ID!
+}
+
+input UpdateSnackInput {
+  id: ID!
+  name: String!
+  price: Int!
+}
+
+input deleteSnackInput {
+  id: ID!
 }
